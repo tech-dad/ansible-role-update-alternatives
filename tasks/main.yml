@@ -1,13 +1,13 @@
 ---
 - name: Ensure package is installed
   ansible.builtin.dnf:
-    name: "{{ item.name }}"
-    state: present
+    name: "{{ item.package }}"
   loop: "{{ alternative_packages }}"
+
 - name: Ensure packages present and set alternatives
   community.general.alternatives:
-    name: "{{ item.name | default(item) }}"
-    link: "{{ item.link | default(link) }}"
-    path: "{{ item.path | default(path) }}"
-    state: selected
+    name: "{{ item.name }}"
+    link: "{{ item.link }}"
+    path: "{{ item.path }}"
+    state: auto
   loop: "{{ alternative_packages }}"

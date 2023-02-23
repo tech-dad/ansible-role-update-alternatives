@@ -1,6 +1,11 @@
 ---
 alternative_packages:
   # Specify the name that includes package and versions
-  - name: python38
+  - name: python3
+    package: python38
     path: /usr/bin/python3.8
     link: /usr/bin/python3
+  - name: pip3
+    package: python38-pip
+    path: /usr/bin/pip3.8
+    link: /usr/local/bin/pip3
