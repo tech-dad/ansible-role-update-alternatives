@@ -5,4 +5,4 @@
   vars_files:
     - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/vars/testvars.yml"
   roles:
-    - role: techdad.update_alternatives
+    - role: tech_dad.update_alternatives
