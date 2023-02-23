@@ -1,0 +1,36 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint -s .
+  ansible-lint -vv
+platforms:
+  - name: update-alternatives
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
+    privileged: true
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+  connection_options:
+    ansible_ssh_user: root
+  config_options:
+    defaults:
+      stdout_callback: yaml
+      bin_ansible_callbacks: true
+      callbacks_enabled: "timer, profile_tasks, yaml"
+    ssh_connection:
+      pipelining: true
+      contro_path: "/tmp/ansible-ssh-%%h-%%p-%%r"
+      ssh_args: -o ControlMaster=auto -o ControlPersist=300
+  inventory:
+    group_vars:
+      all:
+        ansible_async_dir: "/tests/.ansible_async"
+  playbooks:
+    converge: ../defaults/converge.yml
+verifier:
+  name: ansible

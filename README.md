@@ -1,36 +1,55 @@
-Role Name
+ansible-role-update-alternatives
 =========
 
-A brief description of the role goes here.
+An Ansible Role that installs package and sets alternative
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None. The module handles the installation of the package when specified.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Variables should be structured as referenced below to allow for updating alternatives for multiple packages. All variables are empty by default:
+
+```
+alternative_packages:
+  # Specify the name that includes package and versions
+  - name: python38
+    path: /usr/bin/python3.8
+    link: /usr/bin/python3
+    state: selected
+    subcommand_name:
+    subcommand_link:
+    subcommand_path:
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Currently there are no know dependencies.
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+- hosts: all
+  vars:
+    alternative_packages:
+      - name: python38
+        path: /usr/bin/python3.8
+        link: /usr/bin/python3
+
+  roles:
+    - geerlingguy.pip
 
 License
 -------
 
-BSD
+MIT / BSD
 
 Author Information
 ------------------

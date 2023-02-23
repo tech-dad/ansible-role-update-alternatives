@@ -1,0 +1,5 @@
+# This file is created by molecule for testing.  It should not be checked in as it changes EVERY run of the test
+dashboard_backup.ndjson
+.pre-commit-config.yaml
+commit-message.txt
+.cache/
